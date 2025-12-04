@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiErrorInterceptor } from './interceptor/api-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { App } from './app';
     AppRoutingModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }
   ],
   bootstrap: [App]
 })
