@@ -1,22 +1,25 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing-module';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { App } from './app';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApiErrorInterceptor } from './interceptor/api-error-interceptor';
+import { AppRoutingModule } from './app-routing-module';
+import { DemoApi } from './component/demo-api/demo-api';
+import { apiErrorInterceptor } from './interceptor/api-error-interceptor';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    DemoApi
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // Remove HttpClientModule - replaced by provideHttpClient
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }
+    provideHttpClient(withInterceptors([apiErrorInterceptor]))
   ],
   bootstrap: [App]
 })

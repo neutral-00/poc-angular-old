@@ -1,16 +1,11 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from "@angular/common/http";
-import { catchError, Observable, throwError } from "rxjs";
+import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
+import { catchError, throwError } from "rxjs";
 
-export class ApiErrorInterceptor implements HttpInterceptor {
-
-  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-    return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        alert(`API Error: ${error.status} : ${error.message}`);
-        return throwError(()=> error);
-      })
-    );
-  }
-
+export const apiErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      alert(`API Error: ${error.status} : ${error.message}`);
+      return throwError(() => error);
+    })
+  );
 }
