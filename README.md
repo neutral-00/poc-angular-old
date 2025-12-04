@@ -1,7 +1,7 @@
 # Angular - 1.1 Handle API Exceptions Globally - POC
 
 ## Project Metadata
-- Repository: https://github.com/neutral-00/poc-angular
+- Repository: https://github.com/neutral-00/poc-angular-old
 - branch:  1-1-handle-api-exception-globally
 
 ## Learning Objective
